@@ -77,7 +77,7 @@ export class ImagesService extends PrismaClient implements OnModuleInit {
     });
 
     if (!images) {
-      new NotFoundException(`images id: ${id} not found`);
+      throw new NotFoundException(`images id: ${id} not found`);
     }
     return images;
   }

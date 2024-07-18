@@ -36,7 +36,7 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     });
 
     if (!product) {
-      new NotFoundException(`Product id: ${id} not found`);
+      throw new NotFoundException(`Product id: ${id} not found`);
     }
     return product;
   }

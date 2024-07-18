@@ -31,7 +31,7 @@ export class CategoriesService extends PrismaClient implements OnModuleInit {
     });
 
     if (!categories) {
-      new NotFoundException(`categories id: ${id} not found`);
+      throw new NotFoundException(`categories id: ${id} not found`);
     }
     return categories;
   }

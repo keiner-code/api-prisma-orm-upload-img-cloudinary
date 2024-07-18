@@ -30,7 +30,7 @@ export class UsersService extends PrismaClient implements OnModuleInit {
     });
 
     if (!users) {
-      new NotFoundException(`User id: ${id} not found`);
+      throw new NotFoundException(`User id: ${id} not found`);
     }
     return users;
   }
