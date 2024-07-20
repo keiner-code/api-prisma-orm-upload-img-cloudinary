@@ -8,6 +8,8 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -17,6 +19,8 @@ import { RoleGuard } from 'src/auth/guards/role.guard';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/models/roles.model';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from 'src/multer/config.multer';
 
 @UseGuards(JwtAuthGuard, RoleGuard)
 @Controller('users')
@@ -25,8 +29,12 @@ export class UsersController {
 
   @Public()
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  @UseInterceptors(FileInterceptor('file', multerOptions))
+  create(
+    @Body() createUserDto: CreateUserDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.usersService.create(createUserDto, file);
   }
 
   @Roles(Role.ADMIN)
