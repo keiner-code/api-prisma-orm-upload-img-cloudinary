@@ -45,7 +45,7 @@ export class CategoriesService extends PrismaClient implements OnModuleInit {
   async findOne(id: number): Promise<Category> {
     const categories = await this.categories.findFirst({
       where: { id, available: true },
-      include: { products: true },
+      include: { products: { include: { images: true } } },
     });
 
     if (!categories) {
