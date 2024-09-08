@@ -29,12 +29,12 @@ export class UsersController {
 
   @Public()
   @Post()
-  @UseInterceptors(FileInterceptor('file', multerOptions))
+  @UseInterceptors(FileInterceptor('photo', multerOptions))
   create(
     @Body() createUserDto: CreateUserDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() photo: Express.Multer.File,
   ) {
-    return this.usersService.create(createUserDto, file);
+    return this.usersService.create(createUserDto, photo);
   }
 
   @Roles(Role.ADMIN)

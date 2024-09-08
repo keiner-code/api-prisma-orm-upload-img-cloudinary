@@ -29,12 +29,12 @@ export class CategoriesController {
 
   @Roles(Role.ADMIN)
   @Post()
-  @UseInterceptors(FileInterceptor('file', multerOptions))
+  @UseInterceptors(FileInterceptor('image', multerOptions))
   create(
     @Body() createCategoryDto: CreateCategoryDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() image: Express.Multer.File,
   ) {
-    return this.categoriesService.create(createCategoryDto, file);
+    return this.categoriesService.create(createCategoryDto, image);
   }
 
   @Public()

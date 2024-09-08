@@ -6,6 +6,7 @@ export const multerOptions = {
   storage: diskStorage({
     destination: './public/images',
     filename: (req, file, callback) => {
+      console.log(file);
       const uniqueSuffix = `${uuidv4()}${extname(file.originalname)}`;
       callback(null, uniqueSuffix);
     },
